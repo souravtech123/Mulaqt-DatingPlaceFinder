@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors')
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 const port = 3000;
@@ -10,9 +12,10 @@ app.use(express.json());
 app.use(cors())
 
 // Connect MongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/datingplacedb')
-  .then(() => console.log("Database connected"))
-  .catch(err => console.log("DB Error:", err));
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log("DB Error:", err));
 
 
 // Schema
